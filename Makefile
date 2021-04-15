@@ -1,13 +1,13 @@
-REGISTRY      	 = registry.neoway.com.br
-REGISTRY_GROUP 	 = solutiondelivery
-GITLAB_GROUP   	 = sd-projects
-BUILD 			 = latest
-NAME           	 = $(shell basename $(CURDIR))
-IMAGE          	 = $(REGISTRY)/$(REGISTRY_GROUP)/$(NAME):$(BUILD)
-POSTGRES_NAME 	 = postgres_$(NAME)_$(BUILD)
-NETWORK_NAME  	 = network_$(NAME)_$(BUILD)
-IMAGESCANAPI	 = scanapi_$(NAME)_$(BUILD)
-APIAPIDOCKERNAME = api-$(NAME)
+REGISTRY      	= registry.neoway.com.br
+REGISTRY_GROUP 	= solutiondelivery
+GITLAB_GROUP   	= sd-projects
+BUILD 			= latest
+NAME           	= $(shell basename $(CURDIR))
+IMAGE          	= $(REGISTRY)/$(REGISTRY_GROUP)/$(NAME):$(BUILD)
+POSTGRES_NAME 	= postgres_$(NAME)_$(BUILD)
+NETWORK_NAME  	= network_$(NAME)_$(BUILD)
+IMAGESCANAPI	= scanapi_$(NAME)_$(BUILD)
+APIDOCKERNAME	= api-$(NAME)
 
 
 check-env-%:
