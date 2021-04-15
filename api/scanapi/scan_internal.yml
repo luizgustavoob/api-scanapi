@@ -1,0 +1,26 @@
+endpoints:
+  - name: companies_api
+    path: http://{{HOST}}:9998/v1/
+    requests:
+      - name: health_check
+        path: /health
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: message_is_ok
+            assert: ${{ response.json()['message'] == 'API no ar!'}}
+
+      - name: add_company
+        path: /companies
+        method: post
+        body:
+          razaoSocial: NEOWAY TECNOLOGIA INTEGRADA ASSESSORIA E NEGOCIOS SA
+          cnpj: 05337875000105
+          cidade: FLORIANOPOLIS
+          uf: SC
+        tests:
+          - name: status_code_is_201
+            assert: ${{ response.status_code == 201 }}
+          - name: body_has_id_field
+            assert: ${{ 'id' in response.json() }}

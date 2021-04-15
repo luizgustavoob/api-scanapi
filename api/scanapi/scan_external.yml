@@ -1,0 +1,144 @@
+endpoints:
+  - name: brasil_api
+    path: https://brasilapi.com.br/api/
+    requests:
+      - name: get_cnpj
+        path: /cnpj/v1/05337875000105
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_is_valid
+            assert: ${{ 'cnpj' in response.json() }}
+
+      - name: get_cnpj_generate_400_error
+        path: /cnpj/v1/00
+        method: get
+        tests:
+          - name: status_code_is_400
+            assert: ${{ response.status_code == 400 }}
+      
+      - name: get_cnpj_generate_404_error
+        path: /cnpj/v1/00000000000000
+        method: get
+        tests:
+          - name: status_code_is_404
+            assert: ${{ response.status_code == 404 }}
+
+      - name: get_banks_br
+        path: /banks/v1
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_has_content
+            assert: ${{ len(response.json()) > 0 }}
+        vars:
+          first_bank: ${{ response.json()[0]['code'] }}
+
+      - name: get_one_bank_br
+        path: /banks/v1/${first_bank}
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_is_valid
+            assert: ${{ 'ispb' in response.json() and 'name' in response.json() and 'code' in response.json() and 'fullName' in response.json() }}
+
+      - name: get_bank_generate_404_error
+        path: /banks/v1/INVALIDBANK
+        method: get
+        tests:
+          - name: status_code_is_404
+            assert: ${{ response.status_code == 404 }}
+          - name: response_body_is_not_found
+            assert: ${{ response.json()['type'] == 'BANK_CODE_NOT_FOUND' }}
+
+      - name: get_feriados_br
+        path: /feriados/v1/2021
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_has_content
+            assert: ${{ len(response.json()) > 0 }}
+
+      - name: get_feriados_generate_404_error
+        path: /feriados/v1/1899
+        method: get
+        tests:
+          - name: status_code_is_404
+            assert: ${{ response.status_code == 404 }}
+          - name: response_body_is_not_found
+            assert: ${{ response.json()['type'] == 'feriados_range_error' }}
+
+      - name: get_ufs_br
+        path: /ibge/uf/v1
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_has_content
+            assert: ${{ len(response.json()) > 0 }}
+          - name: response_body_is_valid
+            assert: ${{ len(response.json()) == 27 }}
+        vars:
+          first_uf: ${{ response.json()[0]['sigla'] }}
+
+      - name: get_one_uf_br
+        path: /ibge/uf/v1/${first_uf}
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_is_valid
+            assert: ${{ 'id' in response.json() and 'sigla' in response.json() and 'nome' in response.json() and 'regiao' in response.json() }}
+
+      - name: get_uf_generate_404_error
+        path: /ibge/uf/v1/INVALIDUF
+        method: get
+        tests:
+          - name: status_code_is_404
+            assert: ${{ response.status_code == 404 }}
+          - name: response_body_is_not_found
+            assert: ${{ response.json()['type'] == 'not_found' }}
+
+      - name: get_uf_and_cities_by_ddd
+        path: /ddd/v1/46
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_has_content
+            assert: ${{ len(response.json()) > 0 }}
+          - name: response_body_is_valid
+            assert: ${{ response.json()['state'] == 'PR' }}
+
+      - name: get_ddd_generate_404_error
+        path: /ddd/v1/00
+        method: get
+        tests:
+          - name: status_code_is_404
+            assert: ${{ response.status_code == 404 }}
+          - name: response_body_is_not_found
+            assert: ${{ response.json()['type'] == 'ddd_error' }}
+
+      - name: get_cep
+        path: /cep/v1/88034132
+        method: get
+        tests:
+          - name: status_code_is_200
+            assert: ${{ response.status_code == 200 }}
+          - name: response_body_has_content
+            assert: ${{ response.json() != None }}
+          - name: response_body_is_valid
+            assert: ${{ response.json()['state'] == 'SC' }}
+
+      - name: get_cep_generate_404_error
+        path: /cep/v1/00000000
+        method: get
+        tests:
+          - name: status_code_is_404
+            assert: ${{ response.status_code == 404 }}
+          - name: response_body_is_not_found
+            assert: ${{ response.json()['type'] == 'service_error' }}

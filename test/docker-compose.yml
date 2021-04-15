@@ -1,0 +1,18 @@
+version: '3.5'
+networks:
+  my-network:
+    name: ${NETWORK_NAME}
+services:
+  postgres:
+    image: postgres:12-alpine
+    container_name: ${POSTGRES_NAME}
+    environment:
+      POSTGRES_USER: pg
+      POSTGRES_PASSWORD: pg
+      POSTGRES_DB: db
+    ports:
+      - 5432:5432
+    volumes: 
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks: 
+      - my-network
