@@ -10,13 +10,6 @@ IMAGESCANAPI	= scanapi_$(NAME)_$(BUILD)
 APIDOCKERNAME	= api-$(NAME)
 
 
-check-env-%:
-	@ if [ "${${*}}" = ""  ]; then \
-		echo "Variable '$*' not set"; \
-		exit 1; \
-	fi
-
-
 clean: ##@dev Remove folder vendor, public and coverage.
 	rm -rf vendor public coverage
 
