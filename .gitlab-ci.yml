@@ -1,93 +1,80 @@
 stages:
-  - check-version
-  # - build
-  # - test
-  # - scan-external
-  # - scan-internal
-  # - pages
+  - build
+  - test
+  - scan-external
+  - scan-internal
+  - pages
 
-check-version:
-  stage: check-version
-  image: python:3.8-buster
-  tags: 
+build:
+  stage: build
+  tags:
     - shell
   script:
-    - python --version
-    - curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
-    - python get-pip.py
-    - pip install scanapi
-    - scanapi run /api/scanapi/scan_external.yml
+    - make build
 
-# build:
-#   stage: build
-#   tags:
-#     - shell
-#   script:
-#     - make build
+test:
+  stage: test
+  tags:
+    - shell
+  before_script:
+    - make env
+  script:
+    - make test
+  after_script:
+    - make env-stop
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 1 days
+  coverage: '/total\:\s*\(statements\)\s*\d{1,}\.\d\%/'
 
-# test:
-#   stage: test
-#   tags:
-#     - shell
-#   before_script:
-#     - make env
-#   script:
-#     - make test
-#   after_script:
-#     - make env-stop
-#   artifacts:
-#     when: always
-#     paths:
-#       - coverage
-#     expire_in: 1 days
-#   coverage: '/total\:\s*\(statements\)\s*\d{1,}\.\d\%/'
+scan-external:
+  stage: scan-external
+  tags:
+    - shell
+  script:
+    - make scan-external
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 1 days
 
-# scan-external:
-#   stage: scan-external
-#   tags:
-#     - shell
-#   script:
-#     - make scan-external
-#   artifacts:
-#     when: always
-#     paths:
-#       - coverage
-#     expire_in: 1 days
+scan-internal:
+  stage: scan-internal
+  tags:
+    - shell
+  before_script:
+    - make env
+    - make build
+    - make image
+    - make run-docker
+  script:
+    - make scan-internal
+  after_script:
+    - make env-stop
+    - make remove-docker
+  artifacts:
+    when: always
+    paths:
+      - coverage
+    expire_in: 1 days
 
-# scan-internal:
-#   stage: scan-internal
-#   tags:
-#     - shell
-#   before_script:
-#     - make env
-#     - make build
-#     - make image
-#     - make run-docker
-#   script:
-#     - make scan-internal
-#   after_script:
-#     - make env-stop
-#     - make remove-docker
-#   artifacts:
-#     when: always
-#     paths:
-#       - coverage
-#     expire_in: 1 days
-
-# pages:
-#   stage: pages
-#   tags:
-#     - shell
-#   dependencies:
-#     - test
-#     - scan-external
-#     - scan-internal
-#   script:
-#     - mkdir public
-#     - mv coverage/ public/
-#   artifacts:
-#     untracked: true
-#     when: always
-#     paths:
-#       - public
-#     expire_in: 360 days
+pages:
+  stage: pages
+  tags:
+    - shell
+  dependencies:
+    - test
+    - scan-external
+    - scan-internal
+  script:
+    - mkdir public
+    - mv coverage/ public/
+  artifacts:
+    untracked: true
+    when: always
+    paths:
+      - public
+    expire_in: 360 days
