@@ -1,80 +1,89 @@
 stages:
-  - build
-  - test
-  - scan-external
-  - scan-internal
-  - pages
+  - check-version
+  # - build
+  # - test
+  # - scan-external
+  # - scan-internal
+  # - pages
 
-build:
-  stage: build
-  tags:
+check-version:
+  stage: check-version
+  image: python:3.8-buster
+  tags: 
     - shell
   script:
-    - make build
+    - python --version
 
-test:
-  stage: test
-  tags:
-    - shell
-  before_script:
-    - make env
-  script:
-    - make test
-  after_script:
-    - make env-stop
-  artifacts:
-    when: always
-    paths:
-      - coverage
-    expire_in: 1 days
-  coverage: '/total\:\s*\(statements\)\s*\d{1,}\.\d\%/'
+# build:
+#   stage: build
+#   tags:
+#     - shell
+#   script:
+#     - make build
 
-scan-external:
-  stage: scan-external
-  tags:
-    - shell
-  script:
-    - make scan-external
-  artifacts:
-    when: always
-    paths:
-      - coverage
-    expire_in: 1 days
+# test:
+#   stage: test
+#   tags:
+#     - shell
+#   before_script:
+#     - make env
+#   script:
+#     - make test
+#   after_script:
+#     - make env-stop
+#   artifacts:
+#     when: always
+#     paths:
+#       - coverage
+#     expire_in: 1 days
+#   coverage: '/total\:\s*\(statements\)\s*\d{1,}\.\d\%/'
 
-scan-internal:
-  stage: scan-internal
-  tags:
-    - shell
-  before_script:
-    - make env
-    - make build
-    - make image
-    - make run-docker
-  script:
-    - make scan-internal
-  after_script:
-    - make env-stop
-    - make remove-docker
-  artifacts:
-    when: always
-    paths:
-      - coverage
-    expire_in: 1 days
+# scan-external:
+#   stage: scan-external
+#   tags:
+#     - shell
+#   script:
+#     - make scan-external
+#   artifacts:
+#     when: always
+#     paths:
+#       - coverage
+#     expire_in: 1 days
 
-pages:
-  stage: pages
-  tags:
-    - shell
-  dependencies:
-    - test
-    - scan-external
-    - scan-internal
-  script:
-    - mkdir public
-    - mv coverage/ public/
-  artifacts:
-    untracked: true
-    when: always
-    paths:
-      - public
-    expire_in: 360 days
+# scan-internal:
+#   stage: scan-internal
+#   tags:
+#     - shell
+#   before_script:
+#     - make env
+#     - make build
+#     - make image
+#     - make run-docker
+#   script:
+#     - make scan-internal
+#   after_script:
+#     - make env-stop
+#     - make remove-docker
+#   artifacts:
+#     when: always
+#     paths:
+#       - coverage
+#     expire_in: 1 days
+
+# pages:
+#   stage: pages
+#   tags:
+#     - shell
+#   dependencies:
+#     - test
+#     - scan-external
+#     - scan-internal
+#   script:
+#     - mkdir public
+#     - mv coverage/ public/
+#   artifacts:
+#     untracked: true
+#     when: always
+#     paths:
+#       - public
+#     expire_in: 360 days
