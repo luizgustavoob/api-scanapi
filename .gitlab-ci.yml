@@ -32,7 +32,7 @@ test:
 scan-external:
   stage: scan-external
   tags:
-    - docker-luiz
+    - shell-luiz
   before_script:
     - pip install scanapi==2.1.0
   script:
@@ -46,11 +46,9 @@ scan-external:
 scan-internal:
   stage: scan-internal
   tags:
-    - docker-luiz
+    - shell-luiz
   before_script:
     - pip install scanapi==2.1.0
-    - pip install docker-compose
-    - docker-compose -v
     - make env
     - make build
     - make image
