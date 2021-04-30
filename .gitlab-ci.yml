@@ -49,6 +49,8 @@ scan-internal:
     - docker-luiz
   before_script:
     - pip install scanapi==2.1.0
+    - pip install docker-compose
+    - docker-compose -v
     - make env
     - make build
     - make image
