@@ -52,6 +52,7 @@ scan-internal:
     - make build
     - make image
     - make run-docker
+    - pip install scanapi==2.1.0
   script:
     - make scan-internal
   after_script:
