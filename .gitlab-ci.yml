@@ -52,7 +52,7 @@ scan-internal:
     - make build
     - make image
     - make run-docker
-    - pip install scanapi==2.1.0
+    - pip3 install --no-cache-dir scanapi
   script:
     - make scan-internal
   after_script:
