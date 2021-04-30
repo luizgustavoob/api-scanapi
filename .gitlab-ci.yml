@@ -32,7 +32,9 @@ test:
 scan-external:
   stage: scan-external
   tags:
-    - shell
+    - docker-luiz
+  before_script:
+    - pip install scanapi==2.1.0
   script:
     - make scan-external
   artifacts:
@@ -44,8 +46,9 @@ scan-external:
 scan-internal:
   stage: scan-internal
   tags:
-    - shell
+    - docker-luiz
   before_script:
+    - pip install scanapi==2.1.0
     - make env
     - make build
     - make image

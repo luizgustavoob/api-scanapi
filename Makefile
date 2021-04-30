@@ -84,35 +84,14 @@ remove-docker:
 
 
 scan-internal: ##@check Run integration tests with ScanAPI. ENV, BUILD, IMAGE and RUN-DOCKER before.
-	cat ./api/scanapi/scan_internal.yml | sed "s/{{HOST}}/$$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(APIDOCKERNAME))/g" > ./api/scanapi/scan_myapi.yml
-	cat ./api/scanapi/Dockerfile.tmpl | sed "s/{{FULLFILE}}/\/api\/scanapi\/scan_myapi.yml/g" | sed "s/{{FILE}}/scan_myapi.yml/g" > ./api/scanapi/Dockerfile
-
-	docker build \
-		--progress=plain \
-		--network $(NETWORK_NAME) \
-		--tag $(IMAGESCANAPI) \
-		--file=./api/scanapi/Dockerfile .
-	
 	-mkdir -p coverage
-	docker create --name $(NAME)-scan-internal $(IMAGESCANAPI)
-	docker cp $(NAME)-scan-internal:/report.html ./coverage/scan-internal-report.html
-	docker rm -vf $(NAME)-scan-internal
-	docker rmi $(IMAGESCANAPI)
-	rm -rf ./api/scanapi/Dockerfile
-	rm -rf ./api/scanapi/scan_myapi.yml
+	cat ./api/scanapi/spec_internal.yml | sed "s/{{HOST}}/$$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(APIDOCKERNAME))/g" > ./api/scanapi/final_spec_internal.yml
+	scanapi run ./api/scanapi/final_spec_internal.yml -o ./coverage/spec-internal-report.html
+	rm -rf ./api/scanapi/final_spec_internal.yml
 
 
 scan-external: ##@check Run integration tests of external APIs with ScanAPI
-	cat ./api/scanapi/Dockerfile.tmpl | sed "s/{{FULLFILE}}/\/api\/scanapi\/scan_external.yml/g" | sed "s/{{FILE}}/scan_external.yml/g" > ./api/scanapi/Dockerfile
-
-	docker build \
-		--progress=plain \
-		--tag $(IMAGESCANAPI) \
-		--file=./api/scanapi/Dockerfile .
-	
 	-mkdir -p coverage
-	docker create --name $(NAME)-scan-external $(IMAGESCANAPI)
-	docker cp $(NAME)-scan-external:/report.html ./coverage/scan-external-report.html
-	docker rm -vf $(NAME)-scan-external
-	docker rmi $(IMAGESCANAPI)
-	rm -rf ./api/scanapi/Dockerfile
+	scanapi run ./api/scanapi/spec_external.yml -o ./coverage/spec-external-report.html
+	
+	

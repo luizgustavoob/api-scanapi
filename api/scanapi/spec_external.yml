@@ -112,7 +112,7 @@ endpoints:
           - name: response_body_has_content
             assert: ${{ len(response.json()) > 0 }}
           - name: response_body_is_valid
-            assert: ${{ response.json()['state'] == 'SP' }}
+            assert: ${{ response.json()['state'] == 'PR' }}
 
       - name: get_ddd_generate_404_error
         path: /ddd/v1/00
