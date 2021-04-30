@@ -68,7 +68,7 @@ run-local: ##@dev Run locally.
 	go run cmd/server/main.go
 
 
-run-docker: remove-docker ##@docker Run docker container. BUILD and IMAGE before.
+run-docker: ##@docker Run docker container. BUILD and IMAGE before.
 	docker run \
 		--name $(APIDOCKERNAME) \
 		--network $(NETWORK_NAME) \
