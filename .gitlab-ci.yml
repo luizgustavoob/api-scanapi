@@ -34,7 +34,7 @@ scan-external:
   tags:
     - docker-luiz
   before_script:
-    - pip install scanapi==2.1.0
+    - pip3 install --no-cache-dir scanapi
   script:
     - make scan-external
   artifacts:
@@ -56,8 +56,8 @@ scan-internal:
   script:
     - make scan-internal
   after_script:
-    - make env-stop
     - make remove-docker
+    - make env-stop
   artifacts:
     when: always
     paths:
