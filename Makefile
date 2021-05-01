@@ -81,6 +81,7 @@ run-docker: ##@docker Run docker container. BUILD and IMAGE before.
 remove-docker: 
 	docker stop $(APIDOCKERNAME)
 	docker rm $(APIDOCKERNAME)
+	docker rmi $(IMAGE)
 
 
 scan-internal: ##@check Run integration tests with ScanAPI. ENV, BUILD, IMAGE and RUN-DOCKER before.
