@@ -33,9 +33,6 @@ scan-external:
   stage: scan-external
   tags:
     - shell-luiz
-  #   - docker-luiz
-  # before_script:
-  #   - pip3 install --no-cache-dir scanapi
   script:
     - make scan-external
   artifacts:
@@ -53,7 +50,6 @@ scan-internal:
     - make build
     - make image
     - make run-docker
-    - pip3 install --no-cache-dir scanapi
   script:
     - make scan-internal
   after_script:
