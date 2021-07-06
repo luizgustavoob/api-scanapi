@@ -32,7 +32,7 @@ test:
 scan-external:
   stage: scan-external
   tags:
-    - shell-luiz
+    - shell
   script:
     - make scan-external
   artifacts:
@@ -44,10 +44,9 @@ scan-external:
 scan-internal:
   stage: scan-internal
   tags:
-    - shell-luiz
+    - shell
   before_script:
     - make env
-    - make build
     - make image
     - make run-docker
   script:
