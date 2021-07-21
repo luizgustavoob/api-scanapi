@@ -7,7 +7,7 @@ endpoints:
         method: get
         tests:
           - name: status_code_is_200
-            assert: ${{ response.status_code == 2000 }}
+            assert: ${{ response.status_code == 200 }}
           - name: response_body_is_valid
             assert: ${{ 'cnpj' in response.json() }}
 
