@@ -45,7 +45,6 @@ To scan your application and view report of integration tests use the following 
 
 ```bash
 make env        # prepares environment for testing
-make build      # prepares your application
 make image      # prepares your application
 make run-docker # run your application as container
 make scan-internal
