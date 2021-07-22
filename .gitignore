@@ -23,3 +23,5 @@ coverage/
 ### IDE ###
 .vscode
 .idea
+
+api/scanapi/spec_internal_local.yml
