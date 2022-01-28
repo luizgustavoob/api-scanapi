@@ -14,23 +14,14 @@ Companies API is an example project, created with the objective of demonstrating
 ### Installing and running locally
 
 ```shell script
-# Install dependencies
+# Install dependencies 
 make install
 
-# Run postgres locally as a container
+# Prepares environment (database and network)
 make env
 
 # Run server locally
-make run
-```
-
-## Running the tests and coverage report
-
-To view report of tests locally use the following command:
-
-```bash
-make env # prepares environment for testing
-make test
+make run-local
 ```
 
 ## Running the integration tests with ScanAPI
@@ -44,7 +35,7 @@ make scan-external
 To scan your application and view report of integration tests use the following command:
 
 ```bash
-make env        # prepares environment for testing
+make env        # prepares environment (database and network)
 make image      # prepares your application
 make run-docker # run your application as container
 make scan-internal
@@ -70,9 +61,3 @@ make image
 make run-docker
 make remove-docker
 ```
-  
-## Inspiration
-
-### Package organization
-
-The package structure used in this project was inspired by the [golang-standards](https://github.com/golang-standards/project-layout) project.
