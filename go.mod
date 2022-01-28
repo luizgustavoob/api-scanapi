@@ -1,9 +1,10 @@
-module gitlab.neoway.com.br/companies
+module github.com/api-scanapi
 
 go 1.16
 
 require (
-	github.com/gin-gonic/gin v1.6.2
-	github.com/lib/pq v1.9.0
-	github.com/stretchr/testify v1.6.0
+	github.com/gin-gonic/gin v1.7.7
+	github.com/lib/pq v1.10.4
+	github.com/stretchr/testify v1.7.0
+	go.uber.org/fx v1.16.0
 )

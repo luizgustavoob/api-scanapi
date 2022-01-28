@@ -1,15 +1,13 @@
 endpoints:
   - name: companies_api
-    path: http://{{HOST}}:9998/v1/
+    path: http://{{HOST}}:9998/
     requests:
       - name: health_check
-        path: /health
+        path: /ping
         method: get
         tests:
           - name: status_code_is_200
             assert: ${{ response.status_code == 200 }}
-          - name: message_is_ok
-            assert: ${{ response.json()['message'] == 'API no ar!'}}
 
       - name: add_company
         path: /companies
