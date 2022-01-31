@@ -1,6 +1,6 @@
 package main
 
-import "github.com/api-scanapi/internal"
+import "github.com/companies/internal"
 
 func main() {
 	internal.Serve()

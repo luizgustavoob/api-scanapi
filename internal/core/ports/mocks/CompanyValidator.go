@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	entities "github.com/api-scanapi/internal/core/entities"
+	entities "github.com/companies/internal/core/entities"
 	mock "github.com/stretchr/testify/mock"
 )
 

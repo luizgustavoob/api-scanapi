@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/api-scanapi/internal/adapters/handlers/companieshandler"
-	"github.com/api-scanapi/internal/core/entities"
-	"github.com/api-scanapi/internal/core/ports/mocks"
+	"github.com/companies/internal/adapters/handlers/companieshandler"
+	"github.com/companies/internal/core/entities"
+	"github.com/companies/internal/core/ports/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -103,10 +103,10 @@ func TestHandler_ServeHTTP_WhenInserterReturnError_ShouldReturnError(t *testing.
 func TestHandler_ServeHTTP_WhenSuccess_ShouldReturnSuccess(t *testing.T) {
 	expected := &entities.Company{
 		ID:          "1",
-		RazaoSocial: "NEOWAY TECNOLOGIA INTEGRADA ASSESSORIA E NEGOCIOS SA",
-		CNPJ:        "05337875000105",
-		Cidade:      "FLORIANOPOLIS",
-		UF:          "SC",
+		RazaoSocial: "MERCADO ENVIOS SERVICOS DE LOGISTICA LTDA",
+		CNPJ:        "20121850000155",
+		Cidade:      "OSASCO",
+		UF:          "SP",
 	}
 
 	validator := new(mocks.CompanyValidator)
@@ -117,8 +117,8 @@ func TestHandler_ServeHTTP_WhenSuccess_ShouldReturnSuccess(t *testing.T) {
 
 	handler := companieshandler.New(validator, inserter)
 
-	company := `{"razaoSocial": "NEOWAY TECNOLOGIA INTEGRADA ASSESSORIA E NEGOCIOS SA", "cnpj": "05337875000105", "cidade": "FLORIANOPOLIS", "uf": "SC"}`
-	companySave := `{"id": "1", "razaoSocial": "NEOWAY TECNOLOGIA INTEGRADA ASSESSORIA E NEGOCIOS SA", "cnpj": "05337875000105", "cidade": "FLORIANOPOLIS", "uf": "SC"}`
+	company := `{"razaoSocial": "MERCADO ENVIOS SERVICOS DE LOGISTICA LTDA", "cnpj": "20121850000155", "cidade": "OSASCO", "uf": "SP"}`
+	companySave := `{"id": "1", "razaoSocial": "MERCADO ENVIOS SERVICOS DE LOGISTICA LTDA", "cnpj": "20121850000155", "cidade": "OSASCO", "uf": "SP"}`
 
 	request := httptest.NewRequest("POST", "/companies", bytes.NewReader([]byte(company)))
 	response := httptest.NewRecorder()

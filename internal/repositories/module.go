@@ -3,8 +3,8 @@ package repositories
 import (
 	"database/sql"
 
-	"github.com/api-scanapi/internal/core/ports"
-	"github.com/api-scanapi/internal/repositories/companiespostgresql"
+	"github.com/companies/internal/core/ports"
+	"github.com/companies/internal/repositories/companiespostgresql"
 	"go.uber.org/fx"
 )
 

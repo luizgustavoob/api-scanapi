@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/api-scanapi/internal/adapters/handlers/pinghandler"
+	"github.com/companies/internal/adapters/handlers/pinghandler"
 	"github.com/stretchr/testify/assert"
 )
 

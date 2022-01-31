@@ -13,10 +13,10 @@ endpoints:
         path: /companies
         method: post
         body:
-          razaoSocial: NEOWAY TECNOLOGIA INTEGRADA ASSESSORIA E NEGOCIOS SA
-          cnpj: 05337875000105
-          cidade: FLORIANOPOLIS
-          uf: SC
+          razaoSocial: MERCADO ENVIOS SERVICOS DE LOGISTICA LTDA
+          cnpj: "20121850000155"
+          cidade: OSASCO
+          uf: SP
         tests:
           - name: status_code_is_201
             assert: ${{ response.status_code == 201 }}

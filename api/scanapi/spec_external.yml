@@ -3,7 +3,7 @@ endpoints:
     path: https://brasilapi.com.br/api/
     requests:
       - name: get_cnpj
-        path: /cnpj/v1/05337875000105
+        path: /cnpj/v1/20121850000155
         method: get
         tests:
           - name: status_code_is_200

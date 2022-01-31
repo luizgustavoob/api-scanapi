@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/api-scanapi/internal/adapters/clients/brasilapiclient"
-	"github.com/api-scanapi/internal/core/ports"
+	"github.com/companies/internal/adapters/clients/brasilapiclient"
+	"github.com/companies/internal/core/ports"
 	"go.uber.org/fx"
 )
 

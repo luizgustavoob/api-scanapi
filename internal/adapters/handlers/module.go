@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"github.com/api-scanapi/internal/adapters/handlers/companieshandler"
-	"github.com/api-scanapi/internal/adapters/handlers/pinghandler"
-	"github.com/api-scanapi/internal/core/ports"
+	"github.com/companies/internal/adapters/handlers/companieshandler"
+	"github.com/companies/internal/adapters/handlers/pinghandler"
+	"github.com/companies/internal/core/ports"
 	"go.uber.org/fx"
 )
 

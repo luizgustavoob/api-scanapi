@@ -2,11 +2,10 @@ package httpstarter
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"time"
 
-	"github.com/api-scanapi/internal/core/ports"
+	"github.com/companies/internal/core/ports"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/fx"
 )
@@ -31,8 +30,7 @@ func Register(params HandlerParams) http.Handler {
 	gin.SetMode(gin.ReleaseMode)
 	handler := gin.Default()
 
-	for i, h := range params.Handlers {
-		log.Printf("Registrando %d handler...\n", i)
+	for _, h := range params.Handlers {
 		handler.Handle(h.GetHttpMethod(), h.GetRelativePath(), gin.WrapH(h))
 	}
 

@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/api-scanapi/internal/server/httpstarter"
-	"github.com/api-scanapi/internal/server/postgresql"
+	"github.com/companies/internal/server/httpstarter"
+	"github.com/companies/internal/server/postgresql"
 	"go.uber.org/fx"
 )
 

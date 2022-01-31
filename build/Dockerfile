@@ -1,5 +1,5 @@
 FROM golang:alpine AS base
-WORKDIR /go/src/github.com/api-scanapi/
+WORKDIR /go/src/github.com/companies/
 
 # Dependencies
 FROM base as dependencies

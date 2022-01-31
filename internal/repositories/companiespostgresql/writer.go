@@ -3,8 +3,8 @@ package companiespostgresql
 import (
 	"database/sql"
 
-	"github.com/api-scanapi/internal/core/entities"
-	"github.com/api-scanapi/internal/core/ports"
+	"github.com/companies/internal/core/entities"
+	"github.com/companies/internal/core/ports"
 )
 
 type (

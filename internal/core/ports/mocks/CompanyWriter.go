@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	entities "github.com/api-scanapi/internal/core/entities"
+	entities "github.com/companies/internal/core/entities"
 	mock "github.com/stretchr/testify/mock"
 )
 

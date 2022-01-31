@@ -1,8 +1,8 @@
 package core
 
 import (
-	"github.com/api-scanapi/internal/core/ports"
-	"github.com/api-scanapi/internal/core/services"
+	"github.com/companies/internal/core/ports"
+	"github.com/companies/internal/core/services"
 	"go.uber.org/fx"
 )
 

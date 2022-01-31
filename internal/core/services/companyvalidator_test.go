@@ -5,9 +5,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/api-scanapi/internal/core/entities"
-	"github.com/api-scanapi/internal/core/ports/mocks"
-	"github.com/api-scanapi/internal/core/services"
+	"github.com/companies/internal/core/entities"
+	"github.com/companies/internal/core/ports/mocks"
+	"github.com/companies/internal/core/services"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
